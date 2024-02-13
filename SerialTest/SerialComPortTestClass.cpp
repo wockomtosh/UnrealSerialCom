@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SerialComPort.h"
+#include "SerialComPortTestClass.h"
+#include <wchar.h>
+#include <stdio.h>
 
 USerialComPort::USerialComPort() :
 	hCom(nullptr), portNumber(-1)
@@ -25,6 +27,7 @@ bool USerialComPort::Open(int port)
 {
 	const int BUF_SIZE = 5;
 	wchar_t* wstrBuf = static_cast<wchar_t*>(calloc(BUF_SIZE, sizeof(wchar_t)));
+	const wchar_t* format = L"%s%d";
 	swprintf(wstrBuf, BUF_SIZE, L"%s%d", L"COM", port);
 
 	DCB dcb;
@@ -46,42 +49,42 @@ bool USerialComPort::Open(int port)
 		return false;
 	}
 
-    // Initialize the DCB structure.
-    SecureZeroMemory(&dcb, sizeof(DCB));
-    dcb.DCBlength = sizeof(DCB);
+	// Initialize the DCB structure.
+	SecureZeroMemory(&dcb, sizeof(DCB));
+	dcb.DCBlength = sizeof(DCB);
 
-    // Build on the current configuration by first retrieving all current settings.
-    fSuccess = GetCommState(hCom, &dcb);
-    if (!fSuccess)
-    {
-        //TODO: Handle the error.
-		hCom = nullptr;
-        return false;
-    }
-
-    //  Fill in some DCB values and set the com state: 
-    //  9600 bps, 8 data bits, no parity, and 1 stop bit.
-    dcb.BaudRate = CBR_9600;
-    dcb.ByteSize = 8;
-    dcb.StopBits = ONESTOPBIT;
-    dcb.Parity = NOPARITY;
-
-    fSuccess = SetCommState(hCom, &dcb);
-
-    if (!fSuccess)
-    {
+	// Build on the current configuration by first retrieving all current settings.
+	fSuccess = GetCommState(hCom, &dcb);
+	if (!fSuccess)
+	{
 		//TODO: Handle the error.
 		hCom = nullptr;
 		return false;
-    }
+	}
 
-    COMMTIMEOUTS timeout;
-    SecureZeroMemory(&timeout, sizeof(COMMTIMEOUTS));
+	//  Fill in some DCB values and set the com state: 
+	//  9600 bps, 8 data bits, no parity, and 1 stop bit.
+	dcb.BaudRate = CBR_9600;
+	dcb.ByteSize = 8;
+	dcb.StopBits = ONESTOPBIT;
+	dcb.Parity = NOPARITY;
 
-    timeout.ReadIntervalTimeout = 1;
-    timeout.ReadTotalTimeoutMultiplier = 0; //This says that the total timeout is X ms per byte
-    timeout.ReadTotalTimeoutConstant = 0; //This is added to the multiplier
-    SetCommTimeouts(hCom, &timeout);
+	fSuccess = SetCommState(hCom, &dcb);
+
+	if (!fSuccess)
+	{
+		//TODO: Handle the error.
+		hCom = nullptr;
+		return false;
+	}
+
+	COMMTIMEOUTS timeout;
+	SecureZeroMemory(&timeout, sizeof(COMMTIMEOUTS));
+
+	timeout.ReadIntervalTimeout = 1;
+	timeout.ReadTotalTimeoutMultiplier = 0; //This says that the total timeout is X ms per byte
+	timeout.ReadTotalTimeoutConstant = 0; //This is added to the multiplier
+	SetCommTimeouts(hCom, &timeout);
 
 	return true;
 }
@@ -93,19 +96,20 @@ void USerialComPort::Close()
 	hCom = nullptr;
 
 	//TODO: ???
-	UObjectBaseUtility::RemoveFromRoot();
+	//UObjectBaseUtility::RemoveFromRoot();
 }
 
-FString USerialComPort::ReadLine()
+std::string USerialComPort::ReadLine()
 {
-	LPVOID lpBuffer = calloc(8, sizeof(char));
-	DWORD numBytes = 7; //If we output a line of 5 chars, the string also has a newline char and a null terminator, so we need 7
+	LPVOID lpBuffer = calloc(16, sizeof(char));
+	//Doing 16 right now to test something.
+	DWORD numBytes = 16; //If we output a line of 5 chars, the string also has a newline char and a null terminator, so we need 7
 	LPDWORD lpBytesRead = static_cast<LPDWORD>(malloc(sizeof(DWORD)));
 	bool rSuccess = true;
 
 	rSuccess = ReadFile(hCom, lpBuffer, numBytes, lpBytesRead, NULL);
 
-	return FString(static_cast<char*>(lpBuffer));
+	return std::string(static_cast<char*>(lpBuffer));
 }
 
 void USerialComPort::Flush()
@@ -115,9 +119,9 @@ void USerialComPort::Flush()
 	ReadFile(hCom, lpBuffer, FLUSH_BUFFER_SIZE, NULL, NULL);
 }
 
-USerialComPort* USerialComPort::OpenComPort(bool &bOpened, int portNumber)
+USerialComPort* USerialComPort::OpenComPort(bool& bOpened, int portNumber)
 {
-	USerialComPort* serialPort = NewObject<USerialComPort>();
+	USerialComPort* serialPort = new USerialComPort();
 	bOpened = serialPort->Open(portNumber);
 	return serialPort;
 }
