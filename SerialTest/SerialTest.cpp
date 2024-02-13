@@ -98,20 +98,27 @@ void SerialClassTest()
 {
     bool opened;
     USerialComPort* port;
-    for (int i = 7; i <= 8; i++)
+    for (int i = 1; i <= 8; i++)
     {
         port = USerialComPort::OpenComPort(opened, i);
 
         if (opened)
         {
-            printf("Port %d opened successfully!\n", i);
+            printf("Port %d opened successfully!\n", i);            
             break;
         }
         printf("Port %d didn't open\n", i);
     }
+    
+    port->Flush();
+    printf(port->ReadLine().c_str());
+    printf(port->ReadLine().c_str());
+    printf(port->ReadLine().c_str());
+    printf(port->ReadLine().c_str());
+    printf(port->ReadLine().c_str());
 
-    while (true)
-        printf(port->ReadLine().c_str());
+    port->Close();
+    printf("Port closed\n");
 }
 
 int main()
@@ -119,5 +126,5 @@ int main()
     //Select which of these to use based on if I'm testing the communication directly or testing the class
     SerialClassTest();
 
-    SerialTest();
+    //SerialTest();
 }
