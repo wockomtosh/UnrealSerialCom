@@ -4,3 +4,5 @@ A testing area for opening serial ports for an arduino to communicate with Unrea
 The TestClass files are NOT Unreal classes, I used them to test my changes in plain C++
 
 The SerialComPort.h and SerialComPort.cpp classes are the ones I'm using in Unreal
+
+To actually run SerialTest.cpp you need to comment out the Unreal files since they will cause build errors
