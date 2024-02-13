@@ -18,11 +18,17 @@
     <ClCompile Include="SerialTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SerialComPortTestClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="SerialComPort.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SerialComPortTestClass.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="SerialComPort.h">
       <Filter>Source Files</Filter>
     </ClInclude>

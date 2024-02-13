@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="SerialComPort.cpp" />
+    <ClCompile Include="SerialComPortTestClass.cpp" />
     <ClCompile Include="SerialTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SerialComPort.h" />
+    <ClInclude Include="SerialComPortTestClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
