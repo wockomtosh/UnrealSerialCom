@@ -83,7 +83,7 @@ bool USerialComPort::Open(int port)
 
 	timeout.ReadIntervalTimeout = 1;
 	timeout.ReadTotalTimeoutMultiplier = 0; //This says that the total timeout is X ms per byte
-	timeout.ReadTotalTimeoutConstant = 0; //This is added to the multiplier
+	timeout.ReadTotalTimeoutConstant = 20; //This is added to the multiplier
 	SetCommTimeouts(hCom, &timeout);
 
 	return true;
