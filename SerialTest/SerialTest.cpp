@@ -5,7 +5,7 @@
 #include <tchar.h>
 #include <stdio.h>
 
-#include "SerialComPort.h"
+#include "SerialComPortTestClass.h"
 
 void PrintCommState(DCB dcb)
 {
