@@ -10,7 +10,7 @@ To actually run SerialTest.cpp you need to comment out the Unreal files since th
 Parts of the code for this are based off of this plugin: https://github.com/videofeedback/Unreal_Engine_SerialCOM_Plugin
 
 Other resources used include the following:
-Windows API documentation
-https://learn.microsoft.com/en-us/windows/win32/devio/configuring-a-communications-resource
-https://stackoverflow.com/questions/15794422/serial-port-rs-232-connection-in-c
+Windows API documentation\n
+https://learn.microsoft.com/en-us/windows/win32/devio/configuring-a-communications-resource \n
+https://stackoverflow.com/questions/15794422/serial-port-rs-232-connection-in-c \n
 http://hdrlab.org.nz/articles/windows-development/a-c-class-for-controlling-a-comm-port-in-windows/
