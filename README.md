@@ -8,6 +8,7 @@ The SerialComPort.h and SerialComPort.cpp classes are the ones I'm using in Unre
 To actually run SerialTest.cpp you need to comment out the Unreal files since they will cause build errors
 
 Parts of the code for this are based off of this plugin: https://github.com/videofeedback/Unreal_Engine_SerialCOM_Plugin
+
 Other resources used include the following:
 Windows API documentation
 https://learn.microsoft.com/en-us/windows/win32/devio/configuring-a-communications-resource
