@@ -1,5 +1,5 @@
 # UnrealSerialCom
-A testing area for opening serial ports for an arduino to communicate with Unreal Engine
+A personal testing area for opening serial ports for an arduino to communicate with Unreal Engine
 
 The TestClass files are NOT Unreal classes, I used them to test my changes in plain C++
 
