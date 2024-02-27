@@ -27,6 +27,10 @@ protected:
 	HANDLE hCom;
 	int portNumber;
 	//I'll need overlapped structs later for async?
+	//After investigating async, for my purposes async doesn't make a lot of sense.
+	//If I was reading and loading large files then maybe it would make sense, and there
+	//could certainly be issues with synchronous reading, but I think it won't actually change much
+	//Since I need the strings to be in order anyways.
 
 public:
 	USerialComPort();
